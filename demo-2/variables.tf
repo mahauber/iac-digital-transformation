@@ -9,3 +9,9 @@ variable "location" {
   description = "The Azure location to use for the resources."
   default     = "North Europe"
 }
+
+variable "environment" {
+  type        = string
+  description = "The environment for the resources, e.g., dev, test, prod."
+  default     = "dev"  
+}

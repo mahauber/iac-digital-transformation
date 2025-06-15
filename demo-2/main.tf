@@ -1,27 +1,27 @@
 resource "azurerm_resource_group" "main" {
-  name     = "rg-neu-dev-demo-1"
+  name     = "rg-neu-${var.environment}-demo-1"
   location = var.location
 }
 
-resource "azurerm_log_analytics_workspace" "example" {
-  name                = "acctest-01"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
+resource "azurerm_log_analytics_workspace" "main" {
+  name                = "log-neu-${var.environment}-demo-1"
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
   sku                 = "PerGB2018"
   retention_in_days   = 30
 }
 
-resource "azurerm_container_app_environment" "example" {
+resource "azurerm_container_app_environment" "main" {
   name                       = "Example-Environment"
-  location                   = azurerm_resource_group.example.location
-  resource_group_name        = azurerm_resource_group.example.name
-  log_analytics_workspace_id = azurerm_log_analytics_workspace.example.id
+  location                   = azurerm_resource_group.main.location
+  resource_group_name        = azurerm_resource_group.main.name
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.main.id
 }
 
-resource "azurerm_container_app" "example" {
+resource "azurerm_container_app" "main" {
   name                         = "example-app"
-  container_app_environment_id = azurerm_container_app_environment.example.id
-  resource_group_name          = azurerm_resource_group.example.name
+  container_app_environment_id = azurerm_container_app_environment.main.id
+  resource_group_name          = azurerm_resource_group.main.name
   revision_mode                = "Single"
 
   template {
