@@ -37,12 +37,11 @@ jobs:
     
     - name: OpenTofu Validate
       id: validate
-      run: tofu validate -no-color
+      run: tofu validate
     
     - name: OpenTofu Plan
       id: plan
       run: tofu plan
-      continue-on-error: true
 
   opentofu-apply:
     name: 'OpenTofu Apply'
@@ -66,7 +65,6 @@ jobs:
       id: init
       run: tofu init
     
-    - name: OpenTofu Plan
-      id: plan
+    - name: OpenTofu Apply
+      id: apply
       run: tofu apply -auto-approve
-      continue-on-error: true
