@@ -10,8 +10,20 @@ variable "location" {
   default     = "North Europe"
 }
 
+variable "location_code" {
+  type        = string
+  description = "The Azure location code to use for the resources."
+  default     = "neu"
+}
+
 variable "environment" {
   type        = string
   description = "The environment for the resources, e.g., dev, test, prod."
-  default     = "dev"  
+  default     = "dev"
+}
+
+variable "project_name" {
+  type        = string
+  description = "The name of the project for which the resources are being created."
+  default     = "demo-1"
 }
