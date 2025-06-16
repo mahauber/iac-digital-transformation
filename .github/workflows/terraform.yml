@@ -7,7 +7,6 @@ on:
         type: choice
         description: 'Select a demo to run'
         options:
-          - 'demo-0'
           - 'demo-1'
           - 'demo-2'
           - 'demo-3'
@@ -62,6 +61,7 @@ jobs:
     defaults:
       run:
         shell: bash
+        working-directory: ./${{ github.event.inputs.demo }}
 
     steps:
     - name: Checkout
