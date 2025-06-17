@@ -21,10 +21,15 @@ resource "cloudflare_dns_record" "app" {
   type    = "CNAME"
 }
 
-resource "time_sleep" "wait_20_seconds" {
-  depends_on = [cloudflare_dns_record.domain_verification, cloudflare_dns_record.app]
+resource "time_sleep" "wait_30_seconds" {
+  for_each = { for app in local.container_apps : app.name => app }
 
-  create_duration = "20s"
+  depends_on = [cloudflare_dns_record.domain_verification, cloudflare_dns_record.app]
+  triggers = {
+    app_dns_record = cloudflare_dns_record.app[each.value.name].content
+    domain_verification_record = cloudflare_dns_record.domain_verification[each.value.name].content
+  }
+  create_duration = "30s"
 }
 
 resource "azurerm_container_app_custom_domain" "app" {
@@ -33,7 +38,7 @@ resource "azurerm_container_app_custom_domain" "app" {
   name             = "${each.value.name}.k8st.cc"
   container_app_id = azurerm_container_app.app[each.value.name].id
 
-  depends_on = [time_sleep.wait_20_seconds]
+  depends_on = [time_sleep.wait_30_seconds]
 
   lifecycle {
     ignore_changes = [certificate_binding_type, container_app_environment_certificate_id]
