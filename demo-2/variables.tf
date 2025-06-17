@@ -25,10 +25,5 @@ variable "environment" {
 variable "project_name" {
   type        = string
   description = "The name of the project for which the resources are being created."
-  default     = "demo-3"
-}
-
-variable "cloudflare_api_token" {
-  type        = string
-  description = "The Cloudflare API token to use for managing resources."
+  default     = "demo-2"
 }
