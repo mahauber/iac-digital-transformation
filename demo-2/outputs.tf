@@ -3,6 +3,8 @@ output "resource_group_name" {
 }
 
 output "container_app_fqdns" {
-  value = azurerm_container_app.app[*].latest_revision_fqdn
+  value = [
+    for app in local.container_apps : azurerm_container_app.app[app.name].ingress[0].fqdn
+  ]
   description = "The fully qualified domain name (FQDN) of the container app."
 }

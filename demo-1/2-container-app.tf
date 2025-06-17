@@ -24,7 +24,7 @@ resource "azurerm_container_app" "app" {
       name   = "simple-python"
       image  = "docker.io/k8stpy/simple-python:latest"
       cpu    = 0.5
-      memory = "1.0Gi"
+      memory = "1Gi"
     }
 
     min_replicas = 1

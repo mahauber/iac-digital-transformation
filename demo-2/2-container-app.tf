@@ -41,7 +41,7 @@ resource "azurerm_container_app" "app" {
       name   = each.value.name
       image  = each.value.image
       cpu    = 0.5
-      memory = "1.0Gi"
+      memory = "1Gi"
     }
 
     min_replicas = 1
